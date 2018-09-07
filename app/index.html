@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>MetaCoin - Truffle Webpack Demo w/ Frontend</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <script src="./app.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="row">
+      <div class="jumbotron" style="background-color:#0e173a;">
+        <h1 style="color:#e0cccc;">Smart Car Tracking</h1> <span style="color:#00d6d6;" id="video" class="glyphicon glyphicon-facetime-video"></span>
+        <small style="color:#a7a1a1;">powered by Ethereum</small><br>
+        <p style="color:#a8d7ff;"><span class="glyphicon glyphicon-road"></span> The way to track Smart Car History.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="panel panel-primary">
+          <div class="panel-body">
+
+            <div class="col-md-3">
+              <center>
+                <p><a class="btn btn-success btn-lg" id="registerbtn" role="button">Register New Car <span class="glyphicon glyphicon-cloud"></span></a></p>
+                    <br><span style="font-size:40px;" id="regPointer" class="glyphicon glyphicon-chevron-up"></span>
+              </center>
+            </div>
+            <div class="col-md-3">
+                <center>
+                  <p><a class="btn btn-info btn-lg" id="writebtn" role="button">Current Owner WriteInfo <span class="glyphicon glyphicon-file"></span></a></p>
+                  <br><span style="font-size:40px;" id="writePointer" class="glyphicon glyphicon-chevron-up"></span>
+                </center>
+            </div>
+            <div class="col-md-3">
+                <center>
+                  <p><a class="btn btn-info btn-lg" id="readbtn" role="button">Current Owner History <span class="glyphicon glyphicon-save-file"></span></a></p>
+                  <br><span style="font-size:40px;" id="histryPointer" class="glyphicon glyphicon-lg glyphicon-chevron-up"></span>
+                </center>
+            </div>
+            <div class="col-md-3">
+                <center>
+                  <p><a class="btn btn-warning btn-lg" id="sellbtn" role="button">Buyer Page <span class="glyphicon glyphicon-certificate"></span></a></p>
+                  <br><span style="font-size:40px;" id="sellPointer" class="glyphicon glyphicon-chevron-up"></span>
+                </center>
+            </div>
+
+            <div class="col-md"></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" id="registerpnl">
+      <div class="col-md-12">
+
+        <div class="panel panel-primary">
+          <div class="panel-body">
+            <h3><span class="label label-default">Register new Smart Car</span></h3>
+            <div class="input-group">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" onclick="App.createNewInstance()">Create New Contract Instance
+                  <span class="glyphicon glyphicon-plus-sign"></span></button>
+              </span>
+              <input type="text" id="contractAddress" class="form-control" placeholder="Address of the new contract.." size="100">
+            </div><!-- /input-group -->
+            <span id="status" class="text text-info"></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row" id="savedtailpnl">
+      <div class="col-md-12">
+
+        <div class="panel panel-primary">
+          <div class="panel-body">
+            <h3><span class="label label-default">Save Smart Car Details</span></h3>
+            <div class="input-group">
+              <span class="label label-default">Smart Car Address</span><input required="true" type="text" id="carAddress"
+                class="form-control" placeholder="Address of the Specific Car Contract" size="100">
+            </div>
+            <div class="input-group">
+              <span class="label label-default">Owner Name</span><input required="true" type="text" id="ownerName" class="form-control"
+                placeholder="Name of the car owner">
+            </div>
+            <div class="input-group">
+              <span class="label label-default">Owner Account Address</span><input required="true" type="text" id="ownerId"
+                class="form-control" placeholder="Owner Account Address" size="100">
+            </div>
+            <div class="input-group">
+              <span class="label label-default">Car Description</span><input required="true" type="text" id="carDescription"
+                class="form-control" placeholder="Car Description" size="100">
+            </div>
+            <div class="input-group">
+              <span class="label label-default">Pass Phrase for Encription</span><input required="true" type="password" id="passphrase"
+                class="form-control" placeholder="Pass Phrase" size="10">
+            </div>
+            <div class="input-group">
+              <span class="label label-default">Car Status</span><input required="true" type="text" id="secret" class="form-control"
+                placeholder="Pass Phrase" size="100">
+            </div>
+            <br>
+            <div class="input-group">
+              <button type="button" onclick="App.addNewCar()" class="btn btn-md btn-primary">save <span class="glyphicon glyphicon-save-file"></span></button>
+            </div>
+            <span id="statusCarDetails" class="text text-info"></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row" id="readsmartcardtpnl">
+      <div class="col-md-12">
+
+        <div class="panel panel-primary">
+          <div class="panel-body">
+
+            <h3><span class="label label-default">Read Smart Car Recent History</span></h3>
+
+            <div class="col-lg-12">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button" onclick="App.readCarDetail()">Go!</button>
+                </span>
+                <input type="text" size="100" id="carAddressRead" class="form-control" placeholder="Car Address...">
+              </div><!-- /input-group -->
+
+              <div class="input-group">
+                <span class="label label-default">Pass Phrase</span><input required="true" type="password" id="passphraseRead"
+                  class="form-control" placeholder="Pass Phrase" size="50">
+              </div><br>
+            </div><!-- /.col-lg-6 --><br><br>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="thumbnail">
+                  <div class="caption">
+
+                    <div class="alert alert-info" role="alert">
+                      <h4>Owner Name : </h4> <span id="readOwnerName"></span>
+                    </div>
+
+                    <div class="alert alert-info" role="alert">
+                      <h4>Car Description : </h4> <span id="readCarDesc"></span>
+                    </div>
+
+                    <div class="alert alert-info" role="alert">
+                      <h4>Car Secret Data : </h4> <span id="readSecret"></span>
+                    </div>
+
+                    <div class="alert alert-info" role="alert">
+                      <h4>Record Created Date Time : </h4> <span id="readContractDateTime"></span>
+                    </div>
+                    <span id="readStatusCarDetails" class="text text-info"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="input-group">
+              <span class="label label-default">Owner Address</span><input required="true" type="text" id="smartcarOwnerAddress"
+                class="form-control" placeholder="Owner Address" size="50">
+            </div> <br>
+            <p><button class="btn btn-success btn-md" id="backBtnReadInfo" onclick="App.readMyHistory(1)" role="button"><b>Prev<b> <span class="glyphicon glyphicon-chevron-left"></span></button></p>
+            <p><button class="btn btn-success btn-md" id="nextBtnReadInfo" onclick="App.readMyHistory(0)" role="button"><b>Next<b> <span class="glyphicon glyphicon-chevron-right"></span></button></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row" id="readsmartcardtpnlfornormalusers">
+      <div class="col-md-12">
+    
+        <div class="panel panel-primary">
+          <div class="panel-body">
+    
+            <h3><span class="label label-default">Search History For Buy</span></h3>
+            <div class="input-group">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" onclick="App.getCurrentTrailCount()">Get Search Range</button>
+              </span>
+              <input type="text" size="10" id="carAddressBuyPane" class="form-control" placeholder="Car Address...">
+            </div><!-- /input-group -->
+    
+    
+            <div class="row">
+              <div class="col-md-12">
+                <div class="thumbnail">
+                  <div class="caption" id="ownerAddressesBuyPane">
+    
+                    <div class="alert alert-info" role="alert">
+                      <h4>Range : </h4> <span id="currentTrailBuyPane"></span>
+                    </div>
+    
+                  </div>
+                  <span id="readStatusBuyPane" class="text text-info"></span>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+
+            <h3><span class="label label-default">Read History</span></h3>
+            <div class="input-group">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" onclick="App.readPage()">Get Page</button>
+              </span>
+              <input type="text" size="5" id="pageNumber" class="form-control" placeholder="Page No">
+            </div><!-- /input-group -->
+            <div class="row">
+                <div class="col-md-12">
+                  <div class="thumbnail">
+                    <div class="caption" id="readPageResult">
+                    </div>
+                    <span id="statusReadPageBuyPane" class="text text-info"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    
+    </div>
+
+
+  </div>
+
+  <script>
+
+    // validate readMyHistory function related buttons
+    document.getElementById("nextBtnReadInfo").disabled = true;
+    document.getElementById("backBtnReadInfo").disabled = true;
+
+    $(document).ready(function () {
+
+      $("#readsmartcardtpnl").fadeOut();
+      $("#savedtailpnl").fadeOut();
+      $("#registerpnl").fadeOut();
+      $("#readsmartcardtpnlfornormalusers").fadeOut();
+
+      $("#regPointer").fadeOut();
+      $("#writePointer").fadeOut();
+      $("#histryPointer").fadeOut();
+      $("#sellPointer").fadeOut();
+
+      $("#registerbtn").dblclick(function () {
+
+        $("#readsmartcardtpnl").fadeOut("slow");
+        $("#savedtailpnl").fadeOut("slow");
+        $("#readsmartcardtpnlfornormalusers").fadeOut("slow");
+        $("#registerpnl").fadeIn("slow");
+
+        $("#regPointer").fadeIn();
+        $("#writePointer").fadeOut();
+        $("#histryPointer").fadeOut();
+        $("#sellPointer").fadeOut();
+
+      });
+
+      $("#readbtn").dblclick(function () {
+
+        $("#savedtailpnl").fadeOut();
+        $("#registerpnl").fadeOut();
+        $("#readsmartcardtpnlfornormalusers").fadeOut();
+        $("#readsmartcardtpnl").fadeIn("slow");
+
+        $("#regPointer").fadeOut();
+        $("#writePointer").fadeOut();
+        $("#histryPointer").fadeIn();
+        $("#sellPointer").fadeOut();
+
+      });
+
+      $("#writebtn").dblclick(function () {
+
+        $("#registerpnl").fadeOut();
+        $("#readsmartcardtpnl").fadeOut();
+        $("#readsmartcardtpnlfornormalusers").fadeOut();
+        $("#savedtailpnl").fadeIn("slow");
+
+        $("#regPointer").fadeOut();
+        $("#writePointer").fadeIn();
+        $("#histryPointer").fadeOut();
+        $("#sellPointer").fadeOut();
+
+      });
+
+      $("#sellbtn").dblclick(function () {
+
+        $("#registerpnl").fadeOut();
+        $("#readsmartcardtpnl").fadeOut();
+        $("#savedtailpnl").fadeOut();
+        $("#readsmartcardtpnlfornormalusers").fadeIn("slow");
+
+        $("#regPointer").fadeOut();
+        $("#writePointer").fadeOut();
+        $("#histryPointer").fadeOut();
+        $("#sellPointer").fadeIn();
+
+      });
+
+
+    }); 
+
+  </script>
+</body>
+
+</html>
